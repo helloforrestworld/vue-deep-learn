@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>parent-foo: {{foo}}</p>
+    <HelloWorld :foo.sync="foo" msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
@@ -10,6 +11,11 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
+  data() {
+    return {
+      foo: true
+    }
+  },
   components: {
     HelloWorld
   }
