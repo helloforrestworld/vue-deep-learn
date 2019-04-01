@@ -1,9 +1,16 @@
 <template>
   <div class="hello">
+    <!-- 图片引入测试 -->
     <img src="./fapiao.jpg" alt="">
     <p class="red">from style-resource-plugin</p>
+    <!-- .sync测试 -->
     <p>get from parent foo {{foo}}</p>
     <button @click="$emit('update:foo', !foo)">更换</button>
+    <!-- debounce测试 -->
+    <div>
+      <input style="border: 1px solid #d19191;" type="text" v-model="text"/>
+      <p>{{upperText}}</p>
+    </div>
   </div>
 </template>
 
@@ -16,21 +23,29 @@ export default {
   },
   data() {
     return {
-      url: './fapiao.jpg'
+      url: './fapiao.jpg',
+      text: '',
+      upperText: ''
     }
   },
   async created() {
-    console.log(1)
+    console.log(this.$Common)
     console.log(process.env.BASE_URL)
     console.log(Object.values({a:1, b: 2}))
-    this.$watch('foo', (newVal) => {
+    this._dToUpperCase = this.$Common.debounce(this.toUpperCase, 300)
+  },
+  watch: {
+    foo(newVal) {
       console.log(newVal, 'newVal')
       console.log(this, 'this in foo change')
-    })
+    },
+    text(str) {
+      this._dToUpperCase(str)
+    }
   },
   methods: {
-    demoMethod() {
-
+    toUpperCase(str) {
+      this.upperText = str.toUpperCase()
     }
   }
 }

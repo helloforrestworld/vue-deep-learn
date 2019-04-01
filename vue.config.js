@@ -16,6 +16,8 @@ module.exports = {
   chainWebpack: config => {
     // 别名设置
     config.resolve.alias.set('style', resolve('src/assets/less'))
+    config.resolve.alias.set('script', resolve('src/assets/js'))
+
     // 全局引入公共mixin, less变量
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
     types.forEach(type => addStyleResource(config.module.rule('less').oneOf(type)))
